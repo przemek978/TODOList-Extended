@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TODOList Extended</string>
+    <string name="task_add_new">XD</string>
+    <string name="show_subtitle">XD</string>
 </resources>
