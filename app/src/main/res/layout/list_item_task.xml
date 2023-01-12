@@ -47,8 +47,8 @@
         <ImageView
             android:id="@+id/task_imageView"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            tools:srcCompat="@drawable/ic_house" />
+            android:layout_height="75dp"/>
+<!--            tools:srcCompat="@drawable/ic_house" />-->
 
     </LinearLayout>
 

@@ -148,10 +148,10 @@ public class TaskListFragment extends Fragment {
             }
 
             if(task.getCategory().equals(Category.HOME)){
-                iconImageView.setImageResource(R.drawable.ic_house);
+                //iconImageView.setImageResource(R.drawable.ic_house);
             }
             else{
-                iconImageView.setImageResource(R.drawable.ic_university);
+                //iconImageView.setImageResource(R.drawable.ic_university);
             }
 
         }
@@ -203,4 +203,4 @@ public class TaskListFragment extends Fragment {
         }
     }
 
-}}
+}
