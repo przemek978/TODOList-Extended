@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/task_item_done"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/task_item_name"
+                style="@style/TextFieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="name"
+                android:textSize="24sp" />
+            <!--                android:textColor="@color/dark_blue"-->
+            <!--            android:textAlignment="viewStart"-->
+
+
+            <TextView
+                android:id="@+id/task_item_date"
+                style="@style/TextFieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="date" />
+            <!--                android:textColor="@color/dark_green"/>-->
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/task_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            tools:srcCompat="@drawable/ic_house" />
+
+    </LinearLayout>
+
+</LinearLayout>
