@@ -49,7 +49,7 @@ public class TaskFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_task, container, false);
+        View view=inflater.inflate(R.layout.task_fragment, container, false);
 
         nameField = view.findViewById(R.id.task_name);
         doneCheckBox=view.findViewById(R.id.task_done);

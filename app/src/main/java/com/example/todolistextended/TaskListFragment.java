@@ -60,7 +60,7 @@ public class TaskListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         super.onCreateOptionsMenu(menu,inflater);
-        inflater.inflate(R.menu.fragment_task_menu,menu);
+        inflater.inflate(R.menu.task_menu,menu);
         MenuItem subtitleItem=menu.findItem(R.id.show_subtitle);
         if(subtitleVisible){
             subtitleItem.setTitle(R.string.hide_subtitle);
