@@ -11,7 +11,7 @@ public class TaskStorage {
     }
     private TaskStorage(){
         tasks= new ArrayList<>();
-        for(int i=1;i<=150;i++){
+        for(int i=1;i<=5;i++){
             Task task=new Task();
             task.setName("Pilne zadanie nr "+i);
             task.setDone(i%3==0);
