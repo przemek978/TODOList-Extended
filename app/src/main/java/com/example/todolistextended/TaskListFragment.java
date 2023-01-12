@@ -41,7 +41,7 @@ public class TaskListFragment extends Fragment {
     }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,Bundle savedInstanceState){
-        View view= inflater.inflate(R.layout.task_list_fragment,container,false);
+        View view= inflater.inflate(R.layout.fragment_task_list,container,false);
         recyclerView=view.findViewById(R.id.task_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
@@ -60,7 +60,7 @@ public class TaskListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         super.onCreateOptionsMenu(menu,inflater);
-        inflater.inflate(R.menu.fragment_task_menu,menu);
+        inflater.inflate(R.menu.task_menu,menu);
         MenuItem subtitleItem=menu.findItem(R.id.show_subtitle);
         if(subtitleVisible){
             subtitleItem.setTitle(R.string.hide_subtitle);
@@ -151,7 +151,7 @@ public class TaskListFragment extends Fragment {
                 iconImageView.setImageResource(R.drawable.ic_house);
             }
             else{
-                iconImageView.setImageResource(R.drawable.ic_university);
+                iconImageView.setImageResource(R.drawable.ic_studies);
             }
 
         }
@@ -203,4 +203,4 @@ public class TaskListFragment extends Fragment {
         }
     }
 
-}}
+}}}
