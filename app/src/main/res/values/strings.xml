@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDoList2</string>
+    <string name="app_name">TODoList Extended</string>
     <string name="name_hint">Wpisz nazwę zadania</string>
     <string name="name_label">Nazwa</string>
     <string name="details_label">Szczegóły</string>
@@ -9,5 +9,4 @@
     <string name="subtitle_format">%1$d zadań</string>
     <string name="show_subtitle">Pokaż podtytuł</string>
     <string name="default_name">"Pilne zadanie numer "</string>
-
 </resources>
