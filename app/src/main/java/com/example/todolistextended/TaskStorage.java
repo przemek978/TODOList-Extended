@@ -1,4 +1,9 @@
 package com.example.todolistextended;
+import android.app.Application;
+
+import com.example.todolistextended.DB.TaskDao;
+import com.example.todolistextended.DB.TaskDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +16,8 @@ public class TaskStorage {
     }
     private TaskStorage(){
         tasks= new ArrayList<>();
+//        TaskDatabase database=TaskDatabase.getDatabase(application);
+//        TaskDao dao= database.taskDao();
         for(int i=1;i<=5;i++){
             Task task=new Task();
             task.setName("Pilne zadanie nr "+i);
@@ -30,9 +37,9 @@ public class TaskStorage {
         return tasks;
     }
 
-    public Task getTask(UUID taskId) {
+    public Task getTask(int taskId) {
         for(Task task:tasks){
-            if(task.getId().equals(taskId)) {
+            if(task.getId()==taskId) {
                 return task;
             }
         }
@@ -43,4 +50,17 @@ public class TaskStorage {
     }
 
 
+    public void deleteTask(Task task) {
+//        for(Task task1:tasks){
+//            if(task.getId()==task1.getId())
+//            {
+//                tasks.remove(tasks.indexOf(task));
+//            }
+//        }
+        for(int i=0;i<tasks.size();i++){
+            if(task.getId()==tasks.get(i).getId()){
+                tasks.remove(i);
+            }
+        }
+    }
 }

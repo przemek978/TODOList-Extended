@@ -43,7 +43,7 @@ public class TaskFragment extends Fragment {
 
         //task = new Task();
 
-        UUID taskId=(UUID) getArguments().getSerializable(ARG_TASK_ID);
+        int taskId=(int) getArguments().getSerializable(ARG_TASK_ID);
         task=TaskStorage.getInstance().getTask(taskId);
     }
 

@@ -18,8 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.todolistextended.DB.TaskViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -30,6 +35,7 @@ public class TaskListFragment extends Fragment {
     private RecyclerView recyclerView;
     private boolean subtitleVisible;
     TaskAdapter adapter;
+    private TaskViewModel taskViewModel;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -38,19 +44,24 @@ public class TaskListFragment extends Fragment {
         {
             subtitleVisible=savedInstanceState.getBoolean(KEY_SUBTITLE_VISIBLE);
         }
+        //recyclerView=findViewById(R.id.task_recycler_view);
+        adapter= new TaskAdapter();
+        taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        taskViewModel.findAll().observe(this, adapter::setTasks);
     }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,Bundle savedInstanceState){
         View view= inflater.inflate(R.layout.task_list_fragment,container,false);
         recyclerView=view.findViewById(R.id.task_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
         return view;
     }
     @Override
     public void onResume(){
         super.onResume();
-        updateView();
-        updateSubtitle();
+        //updateView();
+        //updateSubtitle();
     }
     @Override
     public void onSaveInstanceState(Bundle outState){
@@ -81,42 +92,41 @@ public class TaskListFragment extends Fragment {
             case R.id.show_subtitle:
                 subtitleVisible= !subtitleVisible;
                 getActivity().invalidateOptionsMenu();
-                updateSubtitle();
+                //updateSubtitle();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void updateSubtitle(){
-        TaskStorage taskStorage = TaskStorage.getInstance();
-        List<Task> tasks = taskStorage.getTasks();
-        int todoTasksCount=0;
-        for(Task task:tasks){
-            if(!task.isDone()){
-                todoTasksCount++;
-            }
-        }
-        String subtitle=getString(R.string.subtitle_format,todoTasksCount);
-        if(!subtitleVisible){
-            subtitle=null;
-        }
-        AppCompatActivity appCompatActivity=(AppCompatActivity) getActivity();
-        appCompatActivity.getSupportActionBar().setSubtitle(subtitle);
-    }
-    private void updateView(){
-        TaskStorage taskStorage = TaskStorage.getInstance();
-        List<Task> tasks=taskStorage.getTasks();
-
-        if(adapter==null){
-            adapter=new TaskAdapter(tasks);
-            recyclerView.setAdapter(adapter);
-        }
-        else {
-            adapter.notifyDataSetChanged();
-        }
-        updateSubtitle();
-    }
-    private class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+//    public void updateSubtitle(){
+//        TaskStorage taskStorage = TaskStorage.getInstance();
+//        List<Task> tasks = taskStorage.getTasks();
+//        int todoTasksCount=0;
+//        for(Task task:tasks){
+//            if(!task.isDone()){
+//                todoTasksCount++;
+//            }
+//        }
+//        String subtitle=getString(R.string.subtitle_format,todoTasksCount);
+//        if(!subtitleVisible){
+//            subtitle=null;
+//        }
+//        AppCompatActivity appCompatActivity=(AppCompatActivity) getActivity();
+//        appCompatActivity.getSupportActionBar().setSubtitle(subtitle);
+//    }
+//    private void updateView(){
+//        TaskStorage taskStorage = TaskStorage.getInstance();
+//        List<Task> tasks=taskStorage.getTasks();
+//        if(adapter==null){
+//            adapter=new TaskAdapter(tasks);
+//            recyclerView.setAdapter(adapter);
+//        }
+//        else {
+//            adapter.notifyDataSetChanged();
+//        }
+//        //updateSubtitle();
+//    }
+    private class TaskHolder extends RecyclerView.ViewHolder{
 
         private TextView nameTextView;
         private TextView dateTextView;
@@ -126,13 +136,33 @@ public class TaskListFragment extends Fragment {
 
         public TaskHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_task,parent,false));
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
 
             nameTextView=itemView.findViewById(R.id.task_item_name);
             dateTextView=itemView.findViewById(R.id.task_item_date);
             doneCheckBox=itemView.findViewById(R.id.task_item_done);
             iconImageView=itemView.findViewById(R.id.task_imageView);
-
+            itemView.setOnClickListener(v -> {
+                //editedBook = book;
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                //intent.putExtra(EditBookActivity.EXTRA_EDIT_BOOK_TITLE, bookTitleTextView.getText());
+                //intent.putExtra(EditBookActivity.EXTRA_EDIT_BOOK_AUTHOR, bookAuthorTextView.getText());
+                //startActivityForResult(intent, EDIT_BOOK_ACTIVITY_REQUEST_CODE);
+                intent.putExtra(KEY_EXTRA_TASK_ID,task.getId());
+                startActivity(intent);
+            });
+            itemView.setOnLongClickListener(v -> {
+                //TaskStorage taskStorage = TaskStorage.getInstance();
+                //List<Task> tasks = taskStorage.getTasks();
+                //taskStorage.deleteTask(task);
+                taskViewModel.delete(task);
+                //updateView();
+//                Snackbar.make(itemView.findViewById(R.id.task_recycler_view),
+//                                getString(R.string.task_delete),
+//                                Snackbar.LENGTH_LONG)
+//                        .show();
+                return true;
+            });
         }
         public void bind(Task task){
             this.task=task;
@@ -148,29 +178,30 @@ public class TaskListFragment extends Fragment {
             }
 
             if(task.getCategory().equals(Category.HOME)){
-                //iconImageView.setImageResource(R.drawable.ic_house);
+                iconImageView.setImageResource(R.drawable.ic_house);
             }
             else{
-                //iconImageView.setImageResource(R.drawable.ic_university);
+                iconImageView.setImageResource(R.drawable.ic_studies);
             }
 
         }
         public CheckBox getCheckBox(){
             return doneCheckBox;
         }
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(getActivity(),MainActivity.class);
-            intent.putExtra(KEY_EXTRA_TASK_ID,task.getId());
-            startActivity(intent);
-        }
+//        @Override
+//        public void onClick(View v) {
+//            Intent intent = new Intent(getActivity(),MainActivity.class);
+//            intent.putExtra(KEY_EXTRA_TASK_ID,task.getId());
+//            startActivity(intent);
+//        }
+
     }
 
-    private class TaskAdapter extends RecyclerView.Adapter<TaskHolder>{
+    private class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
         private List<Task> tasks;
-        public TaskAdapter(List<Task> tasks){
-            this.tasks=tasks;
-        }
+//        public TaskAdapter(List<Task> tasks){
+//            this.tasks=tasks;
+//        }
 
         @NonNull
         @Override
@@ -195,8 +226,11 @@ public class TaskListFragment extends Fragment {
                     holder.nameTextView.setPaintFlags(holder.nameTextView.getPaintFlags() &~ Paint.STRIKE_THRU_TEXT_FLAG);
                 }
             });
-        }
 
+        }
+        void setTasks(List<Task> tasks){
+            this.tasks=tasks;
+        }
         @Override
         public int getItemCount() {
             return tasks.size();

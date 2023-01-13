@@ -1,20 +1,33 @@
 package com.example.todolistextended;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import java.util.Date;
 import java.util.UUID;
 
+@Entity(tableName="task")
 public class Task {
-    private UUID id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
+    @TypeConverters(DateConverter.class)
     private Date date;
     private boolean done;
     Category category;
 
     public Task(){
-        id=UUID.randomUUID();
+        //id=UUID.randomUUID();
         date = new Date();
         category=Category.HOME;
     }
+//    public Task(String name){
+//        //id=UUID.randomUUID();
+//        this.name=name;
+//        date = new Date();
+//        category=Category.HOME;
+//    }
     public Category getCategory(){
         return category;
     }
@@ -37,11 +50,11 @@ public class Task {
         this.name=s;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id=id;
     }
 
