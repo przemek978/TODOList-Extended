@@ -10,4 +10,6 @@
     <string name="show_subtitle">Pokaż podtytuł</string>
     <string name="default_name">"Pilne zadanie numer "</string>
     <string name="task_delete">Usunięto zadanie</string>
+    <string name="task_added">Dodano zadanie</string>
+    <string name="task_edited">Edytowani zadanie</string>
 </resources>

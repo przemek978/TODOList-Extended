@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Entity(tableName="task")
 public class Task {

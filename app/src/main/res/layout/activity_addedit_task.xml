@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     android:orientation="vertical"
-    tools:context=".TaskListActivity">
+    tools:context=".EditTaskActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -64,5 +64,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/task_item_padding" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zapisz" />
 
 </LinearLayout>

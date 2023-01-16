@@ -1,11 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<!--    tools:context=".MainActivity">-->
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <Button
+        android:id="@+id/goBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:backgroundTint="#00FFFFFF"
+        android:text="Prev"
+        android:textColor="#0021FD"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/goNextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1"
+        android:backgroundTint="#00FFFFFF"
+        android:text="Next"
+        android:textColor="#0021FD"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/shape"
+        android:id="@+id/constraintLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <include
+            android:id="@+id/include"
+            layout="@layout/content_main"
+            android:padding="10dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="41dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="176dp"
+        android:fontFamily="sans-serif-black"
+        android:text="DAY"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textFontWeight="545"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/day"
+        style="@style/TextFieldStyle"
+        android:layout_width="120dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="1dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Monday"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textFontWeight="545"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+        app:layout_constraintEnd_toStartOf="@+id/goNextButton"
+        app:layout_constraintStart_toEndOf="@+id/goBackButton" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/add_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:tint="@color/white"-->
+<!--        app:backgroundTint="@color/purple_500"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

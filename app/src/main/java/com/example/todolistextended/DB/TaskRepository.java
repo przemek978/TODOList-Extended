@@ -22,6 +22,9 @@ public class TaskRepository {
         return tasks;
     }
 
+    public LiveData<Task> findById(Integer id) {
+        return taskDao.findById(id);
+    }
     void insert(Task task){
         TaskDatabase.databaseWriteExecutor.execute(()->taskDao.insert(task));
     }

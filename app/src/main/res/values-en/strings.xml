@@ -11,4 +11,6 @@
     <string name="subtitle_format">%1$d tasks</string>
     <string name="default_name">Urgent task number</string>
     <string name="task_delete">Task deleting</string>
+    <string name="task_added">Task adding</string>
+    <string name="task_edited">Task editing</string>
 </resources>
