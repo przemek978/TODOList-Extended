@@ -28,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-public class TaskListFragment extends Fragment {
+public class TaskListFragment extends Fragment {    //getting data from db
 
     public static final String KEY_EXTRA_TASK_ID ="KEY_EXTRA_TASK_ID" ;
     private static final String KEY_SUBTITLE_VISIBLE="false";
@@ -47,7 +47,7 @@ public class TaskListFragment extends Fragment {
         //recyclerView=findViewById(R.id.task_recycler_view);
         adapter= new TaskAdapter();
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        taskViewModel.findAll().observe(this, adapter::setTasks);
+        taskViewModel.findAll().observe(this, adapter::setTasks);       //get data from DB
     }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,Bundle savedInstanceState){
@@ -134,7 +134,7 @@ public class TaskListFragment extends Fragment {
         private ImageView iconImageView;
         private Task task;
 
-        public TaskHolder(LayoutInflater inflater, ViewGroup parent) {
+        public TaskHolder(LayoutInflater inflater, ViewGroup parent) {      //display particular task on the list
             super(inflater.inflate(R.layout.list_item_task,parent,false));
             //itemView.setOnClickListener(this);
 
@@ -164,7 +164,7 @@ public class TaskListFragment extends Fragment {
                 return true;
             });
         }
-        public void bind(Task task){
+        public void bind(Task task){        //assign task to its dispalyed view
             this.task=task;
             nameTextView.setText(task.getName());
             dateTextView.setText(task.getDate().toString());

@@ -5,12 +5,14 @@ import com.example.todolistextended.DB.TaskDao;
 import com.example.todolistextended.DB.TaskDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 public class TaskStorage {
     private static final TaskStorage taskStorage= new TaskStorage();
     private final List<Task> tasks;
+    //private final List<String> days = Arrays.asList("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday");
     public static TaskStorage getInstance(){
         return taskStorage;
     }
@@ -18,18 +20,19 @@ public class TaskStorage {
         tasks= new ArrayList<>();
 //        TaskDatabase database=TaskDatabase.getDatabase(application);
 //        TaskDao dao= database.taskDao();
-        for(int i=1;i<=5;i++){
-            Task task=new Task();
-            task.setName("Pilne zadanie nr "+i);
-            task.setDone(i%3==0);
-            tasks.add(task);
-            if(i%3 == 0){
-                task.setCategory(Category.STUDIES);
-            }
-            else{
-                task.setCategory(Category.HOME);
-            }
-        }
+//        for(int i=1;i<=0;i++){
+//            Task task=new Task();
+//            //task.setDay(days.get(i%7));
+//            task.setName("Pilne zadanie nr "+i + " - ");
+//            task.setDone(i%3==0);
+//            tasks.add(task);
+//            if(i%3 == 0){
+//                task.setCategory(Category.STUDIES);
+//            }
+//            else{
+//                task.setCategory(Category.HOME);
+//            }
+//        }
 
     }
 

@@ -10,7 +10,7 @@ import com.example.todolistextended.Task;
 
 import java.util.List;
 
-public class TaskViewModel extends AndroidViewModel {
+public class TaskViewModel extends AndroidViewModel {   //getting data from DB
     private final TaskRepository taskRepository;
     private final LiveData<List<Task>> tasks;
 

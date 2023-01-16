@@ -11,6 +11,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.todolistextended.Category;
 import com.example.todolistextended.Task;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,6 +20,8 @@ import java.util.concurrent.Executors;
 @Database(entities={Task.class},version=1,exportSchema=false)
 public abstract class TaskDatabase extends RoomDatabase {
     private static TaskDatabase databaseInstance;
+    private static final List<String> days = Arrays.asList("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday");
+
     static final ExecutorService databaseWriteExecutor= Executors.newSingleThreadExecutor();
 
     public abstract TaskDao taskDao();
@@ -31,7 +35,8 @@ public abstract class TaskDatabase extends RoomDatabase {
                 dao.deleteAll();
                 for(int i=1;i<=5;i++) {
                     Task task = new Task();
-                    task.setName("Pilne zadanie nr "+i);
+                    //task.setDay(days.get(i%5));
+                    task.setName("Pilne zadanie nr "+i );
                     task.setDone(false);
                     dao.insert(task);
                 }

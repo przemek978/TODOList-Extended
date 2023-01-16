@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
-public class TaskFragment extends Fragment {
+public class TaskFragment extends Fragment {        //task view
 
     private Task task;
     private TextView nameField;

@@ -11,6 +11,7 @@ import java.util.UUID;
 public class Task {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    //private String day = "";
     private String name;
     @TypeConverters(DateConverter.class)
     private Date date;
@@ -41,6 +42,15 @@ public class Task {
     public void setDate(Date d){
         date=d;
     }
+
+//    public String getDay() {
+//        return day;
+//    }
+//
+//    public void setDay(String newDay){
+//        day=newDay;
+//    }
+
 
     public String getName() {
         return name;
