@@ -86,7 +86,7 @@ public class EditTaskActivity extends AppCompatActivity {
     }
     private void setupDateFieldValue(Date date){
         Locale locale= new Locale("pl","PL");
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd.MM.yyyy",locale);
+        SimpleDateFormat dateFormat=new SimpleDateFormat("dd.MM.yyyy hh:mm",locale);
         datefield.setText(dateFormat.format(date));
     }
     private void setUpEditView() {
@@ -95,7 +95,8 @@ public class EditTaskActivity extends AppCompatActivity {
             this.task= task;
             nameField.setText(task.getName());
             doneCheckBox.setChecked(task.isDone());
-            datefield.setText(task.getDate().toString());
+            //datefield.setText(task.getDate().toString());
+            setupDateFieldValue(task.getDate());
             categorySpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,Category.values()));
             categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override

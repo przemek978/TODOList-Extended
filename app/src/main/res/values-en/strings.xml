@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ToDoList2</string>
+    <string name="app_name">ToDoListExtended</string>
     <string name="name_hint">Enter a name for the task</string>
     <string name="name_label">Name</string>
     <string name="details_label">Details</string>
