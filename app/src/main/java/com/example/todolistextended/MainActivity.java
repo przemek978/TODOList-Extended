@@ -1,42 +1,37 @@
 package com.example.todolistextended;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.widget.SearchView;
 
 
 import com.example.todolistextended.DB.TaskViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
-import java.util.UUID;
+
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, AdapterView.OnItemSelectedListener {
 
     public static final int NEW_TODO_ACTIVITY_REQUEST_CODE = 1;
@@ -60,11 +55,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         liveData = taskViewModel.findAll();
         loadAllTasks();
 
-//        FloatingActionButton addToDoItemButton = findViewById(R.id.add_button);
-//        addToDoItemButton.setOnClickListener(v -> {
-//            Intent intent = new Intent(MainActivity.this, EditToDoItemActivity.class);
-//            startActivityForResult(intent, NEW_TODO_ACTIVITY_REQUEST_CODE);
-//        });
+
+
+
+        FloatingActionButton addToDoItemButton = findViewById(R.id.add_button);
+        addToDoItemButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddEditTaskActivity.class);
+            startActivityForResult(intent, NEW_TODO_ACTIVITY_REQUEST_CODE);
+        });
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -79,6 +77,29 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 //        spinner.setOnItemSelectedListener(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.task_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private void loadAllTasks() {
         liveData.removeObservers(this);
         liveData = taskViewModel.findAll();
@@ -90,12 +111,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         liveData = taskViewModel.findByDone(done);
         liveData.observe(this, adapter::setTasks);
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
@@ -120,10 +135,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_TODO_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Snackbar.make(findViewById(R.id.constraintLayout7), getString(R.string.task_added),
+            Snackbar.make(findViewById(R.id.constraintLayout), getString(R.string.task_added),
                     Snackbar.LENGTH_LONG).show();
         } else if (requestCode == EDIT_TODO_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Snackbar.make(findViewById(R.id.constraintLayout7), getString(R.string.task_edited),
+            Snackbar.make(findViewById(R.id.constraintLayout), getString(R.string.task_edited),
                     Snackbar.LENGTH_LONG).show();
         } else {
 //            Snackbar.make(findViewById(R.id.coordinator_layout),
@@ -184,14 +199,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
             if (tasks != null) {
                Task task = tasks.get(position);
-//                TextDrawable myDrawable = TextDrawable.builder().beginConfig()
-//                        .textColor(Color.WHITE)
-//                        .useFont(Typeface.DEFAULT)
-//                        .toUpperCase()
-//                        .endConfig()
-//                        .buildRound(toDoItem.getTitle().substring(0, 1), toDoItem.getColor());
-
-                //holder.taskImageView.setImageDrawable(myDrawable);
                 holder.bind(task);
 
             } else {
@@ -231,15 +238,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             View taskItem = itemView.findViewById(R.id.task_item);
             itemView.setOnLongClickListener(v -> {
                 taskViewModel.delete(task);
-                Snackbar.make(findViewById(R.id.constraintLayout7),
+                Snackbar.make(findViewById(R.id.constraintLayout),
                                 getString(R.string.task_delete),
                                 Snackbar.LENGTH_LONG)
                         .show();
                 return true;
             });
             taskItem.setOnClickListener(v -> {
-                Intent intent = new Intent(MainActivity.this,EditTaskActivity.class);
-                intent.putExtra(EditTaskActivity.EXTRA_EDIT_TODO_ID, task.getId());
+                Intent intent = new Intent(MainActivity.this, AddEditTaskActivity.class);
+                intent.putExtra(AddEditTaskActivity.EXTRA_EDIT_TODO_ID, task.getId());
                 startActivityForResult(intent, MainActivity.EDIT_TODO_ACTIVITY_REQUEST_CODE);
             });
             doneCheckBox.setOnClickListener(v -> {

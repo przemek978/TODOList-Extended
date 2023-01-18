@@ -36,7 +36,7 @@ public abstract class TaskDatabase extends RoomDatabase {
                 for(int i=1;i<=5;i++) {
                     Task task = new Task();
                     task.setDay(days.get(i%7));
-                    task.setName("Pilne zadanie nr "+i );
+                    task.setName("Nowe zadanie"+i );
                     task.setDone(false);
                     dao.insert(task);
                 }

@@ -3,14 +3,17 @@
     <string name="app_name">ToDoListExtended</string>
     <string name="name_hint">Enter a name for the task</string>
     <string name="name_label">Name</string>
-    <string name="details_label">Details</string>
+    <string name="details_label">Date</string>
     <string name="done_label">Done</string>
     <string name="task_add_new">New task</string>
-    <string name="show_subtitle">Show subtitle</string>
-    <string name="hide_subtitle">Hide subtitle</string>
-    <string name="subtitle_format">%1$d tasks</string>
     <string name="default_name">Urgent task number</string>
     <string name="task_delete">Task deleting</string>
     <string name="task_added">Task adding</string>
     <string name="task_edited">Task editing</string>
+    <string name="name_empty">Name is empty</string>
+    <string name="search">Search</string>
+    <string name="clear_search">Clear search</string>
+    <string name="desc_hint">Task Description</string>
+    <string name="desc_label">Description</string>
+    <string name="location_permission_denied">Location permission denied.</string>
 </resources>

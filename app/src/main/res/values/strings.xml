@@ -2,14 +2,24 @@
     <string name="app_name">TODoList Extended</string>
     <string name="name_hint">Wpisz nazwę zadania</string>
     <string name="name_label">Nazwa</string>
-    <string name="details_label">Szczegóły</string>
+    <string name="desc_hint">Opis zadania</string>
+    <string name="desc_label">Opis</string>
+    <string name="details_label">Data</string>
     <string name="done_label">Wykonane</string>
     <string name="task_add_new">Nowe zadanie</string>
-    <string name="hide_subtitle">Ukryj podtytuł</string>
-    <string name="subtitle_format">%1$d zadań</string>
-    <string name="show_subtitle">Pokaż podtytuł</string>
+    <string name="clear_search">Wyczyść wyszukiwanie</string>
+    <string name="search">Wyszukaj</string>
     <string name="default_name">"Pilne zadanie numer "</string>
     <string name="task_delete">Usunięto zadanie</string>
     <string name="task_added">Dodano zadanie</string>
     <string name="task_edited">Edytowani zadanie</string>
+    <string name="name_empty">Nazwa jest pusta</string>
+    <string name="localization_hint" translatable="false">"Wciśnij przycisk, aby pobrać ostatnią lokalizację"</string>
+    <string name="location_permission_denied">Brak dostępu do lokalizacji</string>
+    <string name="location_text" translatable="false">Szerokość geograficzna: %1$.4f \n Długość geograficzna: %2$.4f \n Czas: %3$tr</string>
+    <string name="no_location" translatable="false">Brak lokalizacji</string>
+    <string name="address_text" translatable="false">"Adres: %1$s \n Czas: %2$tr"</string>
+    <string name="service_not_available" translatable="false">Niedostępne</string>
+    <string name="no_address_found" translatable="false">Nie znaleziono adresu</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

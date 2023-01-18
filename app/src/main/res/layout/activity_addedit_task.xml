@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_container"
+    android:id="@+id/edit_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     android:orientation="vertical"
-    tools:context=".EditTaskActivity">
+    tools:context=".AddEditTaskActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/task_name_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/name_label"
@@ -24,6 +24,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/name_hint"
+        android:textColor="@color/dark_blue"
+        style="@style/TextFieldStyle"/>
+    <TextView
+        android:id="@+id/task_description_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/desc_label"
+        android:textColor="@color/dark_teal"
+        style="@style/TextFieldStyle"
+        />
+    <!--    style="?android:listSeparatorTextViewStyle"-->
+
+    <EditText
+        android:id="@+id/task_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/desc_hint"
         android:textColor="@color/dark_blue"
         style="@style/TextFieldStyle"/>
 
@@ -48,9 +65,9 @@
 
     <Spinner
         android:id="@+id/task_category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextFieldStyle"/>
+        style="@style/TextFieldStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <CheckBox
         android:id="@+id/task_done"
@@ -59,11 +76,42 @@
         android:text="@string/done_label"
         android:textAlignment="viewStart" />
 
-    <ImageView
-        android:id="@+id/task_undone_icon"
+    <TextView
+        android:id="@+id/textview_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/task_item_padding" />
+        android:padding="5dp"
+        android:text="@string/localization_hint"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/get_location_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pobierz lokalizację"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textview_address"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="5dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/get_address_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pobierz adres"
+        android:textAlignment="center"
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/button_save"

@@ -38,7 +38,7 @@ android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/shape"
-        android:id="@+id/constraintLayout7"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="14dp"
@@ -99,7 +99,7 @@ android:orientation="vertical">
     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
     android:textFontWeight="545"
     android:textSize="16sp"
-    app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
+    app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
     app:layout_constraintEnd_toStartOf="@+id/goNextButton"
     app:layout_constraintStart_toEndOf="@+id/goBackButton" />
 
