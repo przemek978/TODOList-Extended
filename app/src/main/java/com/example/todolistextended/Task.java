@@ -10,7 +10,7 @@ import java.util.Date;
 public class Task {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    //private String day = "";
+    private String day;
     private String name;
     @TypeConverters(DateConverter.class)
     private Date date;
@@ -42,14 +42,13 @@ public class Task {
         date=d;
     }
 
-//    public String getDay() {
-//        return day;
-//    }
-//
-//    public void setDay(String newDay){
-//        day=newDay;
-//    }
+    public String getDay() {
+        return day;
+    }
 
+    public void setDay(String newDay){
+        day=newDay;
+    }
 
     public String getName() {
         return name;
