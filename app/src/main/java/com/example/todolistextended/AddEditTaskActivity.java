@@ -9,6 +9,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -53,7 +57,7 @@ import java.util.concurrent.Future;
 import static com.example.todolistextended.MainActivity.EDIT_TODO_ACTIVITY_REQUEST_CODE;
 import static com.example.todolistextended.MainActivity.NEW_TODO_ACTIVITY_REQUEST_CODE;
 
-public class AddEditTaskActivity extends AppCompatActivity {
+public class AddEditTaskActivity extends AppCompatActivity implements SensorEventListener {
     public static final String EXTRA_EDIT_TODO_ID = "pb.edu.pl.EDIT_BOOK_TITLE";
     //public static final String EXTRA_SEARCH_PLACE_QUERY = "pb.edu.pl.EDIT_BOOK_AUThOR";
     int MIN_SEARCH_INPUT_LENGTH = 3;
@@ -74,6 +78,9 @@ public class AddEditTaskActivity extends AppCompatActivity {
     private TextView locationTextView;
     private FusedLocationProviderClient fusedLocationClient;
     private TextView addressTextView;
+    private SensorManager sensorManager;
+    private Sensor sensor;
+    private float lastValue;
     public static final int REQUEST_LOCATION_PERMISSION = 100;
     public String TAG = "Location";
 
@@ -87,7 +94,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         datefield = findViewById(R.id.task_date);
         categorySpinner = findViewById(R.id.task_category);
         taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-        //Lokalizacja
+        ///Lokalizacja//////////////////////////////////////////////////////////////////////////////////
         getLocationButton = findViewById(R.id.get_location_button);
         getLocationButton.setOnClickListener((View v)->getLocation());
         locationTextView = findViewById(R.id.textview_location);
@@ -120,13 +127,43 @@ public class AddEditTaskActivity extends AppCompatActivity {
                 new DatePickerDialog(this, date, calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
                         .show());
-
+        int sensorType = getIntent().getIntExtra("EXTRA_SENSOR_TYPE_PARAMETER", Sensor.TYPE_ACCELEROMETER);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(sensorType);
         if (this.requestCode == EDIT_TODO_ACTIVITY_REQUEST_CODE) {
             EditView();
         } else {
             AddView();
         }
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (sensor!= null) {
+            sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sensorManager.unregisterListener(this);
+    }
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        int sensorType = sensorEvent.sensor.getType();
+        float currentValue = sensorEvent.values[0];
+        if(currentValue-lastValue>5 || currentValue-lastValue<-5){
+            task.setDone(!task.isDone());
+            doneCheckBox.setChecked(task.isDone());
+            Log.d("Shake", "Skake detect");
+        }
+        lastValue=currentValue;
+    }
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        Log.d("AccuracyTag", "Work");
     }
     private void getLocation() {
         if (ContextCompat.checkSelfPermission(this,
