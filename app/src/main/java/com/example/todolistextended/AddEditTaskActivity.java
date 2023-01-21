@@ -1,12 +1,9 @@
 package com.example.todolistextended;
 
-import static android.content.ContentValues.TAG;
-
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -63,6 +60,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
     int MIN_SEARCH_INPUT_LENGTH = 3;
     public final String DATE_PATTERN = "dd.MM.yyyy HH:mm";
     public final String EXTRA_REQUEST_CODE = "requestCode";
+    public final int EXTRA_REQUEST_MAP=0;
     private Task task;
     private TextView nameField;
     private Button button;
@@ -99,9 +97,9 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
         getLocationButton.setOnClickListener((View v)->getLocation());
         locationTextView = findViewById(R.id.textview_location);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        addressTextView = findViewById(R.id.textview_address);
-        Button getAddressButton = findViewById(R.id.get_address_button);
-        getAddressButton.setOnClickListener(v->executeGeocoding());
+        //addressTextView = findViewById(R.id.textview_address);
+        Button getAddressButton = findViewById(R.id.open_maps_button);
+        getAddressButton.setOnClickListener(v->openMap());
         /////////////////////////////////////////////////////////////
         updateLabel(calendar.getTime());
         //datefield.setText(calendar.getTime().toString());
@@ -228,21 +226,25 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
         }
         return resultMessage;
     }
-
-    private void executeGeocoding(){
-        if(lastLocation != null){
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            Future<String> returnedAddress = executor.submit(()->locationGecoding(getApplicationContext(),lastLocation));
-            try{
-                String result = returnedAddress.get();
-                addressTextView.setText(getString(R.string.address_text, result, System.currentTimeMillis()));
-            }
-            catch(ExecutionException | InterruptedException e){
-                Log.e(TAG, e.getMessage(), e);
-                Thread.currentThread().interrupt();
-            }
-        }
+    private void openMap(){
+        Intent intent = new Intent(this, MapsActivity.class);
+        //intent.putExtra(AddEditTaskActivity.EXTRA_EDIT_TODO_ID, task.getId());
+        startActivityForResult(intent,EXTRA_REQUEST_MAP);
     }
+//    private void executeGeocoding(){
+//        if(lastLocation != null){
+//            ExecutorService executor = Executors.newSingleThreadExecutor();
+//            Future<String> returnedAddress = executor.submit(()->locationGecoding(getApplicationContext(),lastLocation));
+//            try{
+//                String result = returnedAddress.get();
+//                addressTextView.setText(getString(R.string.address_text, result, System.currentTimeMillis()));
+//            }
+//            catch(ExecutionException | InterruptedException e){
+//                Log.e(TAG, e.getMessage(), e);
+//                Thread.currentThread().interrupt();
+//            }
+//        }
+//    }
     private View.OnClickListener OnSaveClickListener() {
         return e -> {
             Intent replyIntent = new Intent();

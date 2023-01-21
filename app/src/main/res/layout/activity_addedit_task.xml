@@ -94,22 +94,11 @@
         android:textAlignment="center"
         android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/textview_address"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:padding="5dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:visibility="visible" />
-
     <Button
-        android:id="@+id/get_address_button"
+        android:id="@+id/open_maps_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pobierz adres"
+        android:text="Otwórz mapę"
         android:textAlignment="center"
         android:textSize="12sp" />
 
