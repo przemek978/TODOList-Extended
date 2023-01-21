@@ -40,15 +40,12 @@ public abstract class TaskDatabase extends RoomDatabase {
                     task.setDone(false);
                     dao.insert(task);
                 }
-
             });
-
         }
     };
     public static TaskDatabase getDatabase(final Context context){
         if(databaseInstance==null){
             databaseInstance= Room.databaseBuilder(context.getApplicationContext(),TaskDatabase.class,"task_database").addCallback(sRoomDatabaseCallback).build();
-            //databaseInstance= Room.databaseBuilder(context.getApplicationContext(),TaskDatabase.class,"task_database").build();
         }
         return databaseInstance;
     }

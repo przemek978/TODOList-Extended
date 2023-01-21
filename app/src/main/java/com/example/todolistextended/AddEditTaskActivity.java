@@ -57,13 +57,12 @@ import static com.example.todolistextended.MainActivity.NEW_TODO_ACTIVITY_REQUES
 
 public class AddEditTaskActivity extends AppCompatActivity implements SensorEventListener {
     public static final String EXTRA_EDIT_TODO_ID = "pb.edu.pl.EDIT_BOOK_TITLE";
-    //public static final String EXTRA_SEARCH_PLACE_QUERY = "pb.edu.pl.EDIT_BOOK_AUThOR";
     int MIN_SEARCH_INPUT_LENGTH = 3;
     public final String DATE_PATTERN = "dd.MM.yyyy HH:mm";
     public final String EXTRA_REQUEST_CODE = "requestCode";
     public final int EXTRA_REQUEST_MAP=0;
     private Task task;
-    private TextView nameField;
+    private TextView nameField, descriptionField;
     private Button button;
     private CheckBox doneCheckBox;
     private EditText datefield;
@@ -91,6 +90,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
         setContentView(R.layout.activity_addedit_task);
         this.requestCode = getIntent().getIntExtra(EXTRA_REQUEST_CODE, NEW_TODO_ACTIVITY_REQUEST_CODE);
         nameField = findViewById(R.id.task_name);
+        descriptionField = findViewById(R.id.task_description);
         doneCheckBox = findViewById(R.id.task_done);
         datefield = findViewById(R.id.task_date);
         categorySpinner = findViewById(R.id.task_category);
@@ -175,7 +175,6 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
         } else {
             Log.d(TAG, "getLocation: permissions granted");
         }
-
         fusedLocationClient.getLastLocation().addOnSuccessListener(location->{
             if(location!=null){
                 lastLocation = location;
@@ -237,28 +236,12 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
         intent.putExtra(REQUEST_LONGITUDE, task.getLongitude());
         startActivityForResult(intent,EXTRA_REQUEST_MAP);
     }
-//    private void executeGeocoding(){
-//        if(lastLocation != null){
-//            ExecutorService executor = Executors.newSingleThreadExecutor();
-//            Future<String> returnedAddress = executor.submit(()->locationGecoding(getApplicationContext(),lastLocation));
-//            try{
-//                String result = returnedAddress.get();
-//                addressTextView.setText(getString(R.string.address_text, result, System.currentTimeMillis()));
-//            }
-//            catch(ExecutionException | InterruptedException e){
-//                Log.e(TAG, e.getMessage(), e);
-//                Thread.currentThread().interrupt();
-//            }
-//        }
-//    }
-@Override
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         task.setLocation(data.getDoubleExtra(MapsActivity.RESULT_LATITUDE,task.getLatitude()),data.getDoubleExtra(MapsActivity.RESULT_LONGITUDE,task.getLongitude()));
         locationTextView.setText(getString(R.string.location_text, task.getLatitude(), task.getLongitude(),calendar.getTime()));
-        //        lastLocation.setLatitude(task.getLatitude());
-//        lastLocation.setLongitude(task.getLongitude());
     }
 
     private View.OnClickListener OnSaveClickListener() {
@@ -270,9 +253,9 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
                         .show();
             } else {
                 String name = nameField.getText().toString();
-                //task.setLocation(lastLocation.getLatitude(), lastLocation.getLongitude());
                 task.setName(name);
                 task.setDone(doneCheckBox.isChecked());
+                task.setDescription(descriptionField.getText().toString());
                 if (datefield != null) {
                     task.setDate(selectedDate);
                 }
@@ -320,9 +303,8 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
         taskViewModel.findById(selectedItemId).observe(this, task -> {
             this.task= task;
             nameField.setText(task.getName());
+            descriptionField.setText(task.getDescription());
             doneCheckBox.setChecked(task.isDone());
-            //datefield.setText(task.getDate().toString());
-            //setupDateFieldValue(task.getDate());
             locationTextView.setText( getString(R.string.location_text,task.getLatitude(), task.getLongitude(),calendar.getTime()));
             updateLabel(task.getDate());
             categorySpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,Category.values()));
@@ -334,7 +316,6 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
                 }
             });
             categorySpinner.setSelection(task.getCategory().ordinal());
@@ -344,18 +325,6 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
                 selectedDate = date;
                 updateLabel(selectedDate);
             }
-//            if (PlaceType.DEFINED.equals(currentTodo.getPlaceType())) {
-//                final Button navButton = findViewById(R.id.button_nav);
-//                navButton.setVisibility(View.VISIBLE);
-
-//                navButton.setOnClickListener(v -> {
-//                    Intent intent = new Intent(Intent.ACTION_VIEW,
-//                            Uri.parse("google.navigation:q=" + currentTodo.getPlaceAddress()));
-//                    startActivity(intent);
-//
-//                });
-//            }
         });
-
     }
 }

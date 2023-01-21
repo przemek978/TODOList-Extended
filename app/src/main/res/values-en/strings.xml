@@ -16,4 +16,8 @@
     <string name="desc_hint">Task Description</string>
     <string name="desc_label">Description</string>
     <string name="location_permission_denied">Location permission denied.</string>
+    <string name="prev">Prev</string>
+    <string name="next">Next</string>
+    <string name="monday">Monday</string>
+    <string name="day">DAY</string>
 </resources>
