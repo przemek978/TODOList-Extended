@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -80,6 +81,8 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
     private Sensor sensor;
     private float lastValue;
     public static final int REQUEST_LOCATION_PERMISSION = 100;
+    public static String REQUEST_LATITUDE="Latitude";
+    public static String REQUEST_LONGITUDE="Longitude";
     public String TAG = "Location";
 
     @Override
@@ -104,6 +107,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
         updateLabel(calendar.getTime());
         //datefield.setText(calendar.getTime().toString());
         final Button button = findViewById(R.id.button_save);
+
         button.setOnClickListener(OnSaveClickListener());
         DatePickerDialog.OnDateSetListener date = (view12, year, month, day) -> {
             calendar.set(Calendar.YEAR, year);
@@ -175,6 +179,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
         fusedLocationClient.getLastLocation().addOnSuccessListener(location->{
             if(location!=null){
                 lastLocation = location;
+                task.setLocation(location.getLatitude(),location.getLongitude());
                 locationTextView.setText(
                         getString(R.string.location_text, location.getLatitude(), location.getLongitude(), location.getTime()));
             }
@@ -228,7 +233,8 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
     }
     private void openMap(){
         Intent intent = new Intent(this, MapsActivity.class);
-        //intent.putExtra(AddEditTaskActivity.EXTRA_EDIT_TODO_ID, task.getId());
+        intent.putExtra(REQUEST_LATITUDE, task.getLatitude());
+        intent.putExtra(REQUEST_LONGITUDE, task.getLongitude());
         startActivityForResult(intent,EXTRA_REQUEST_MAP);
     }
 //    private void executeGeocoding(){
@@ -245,6 +251,16 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
 //            }
 //        }
 //    }
+@Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        task.setLocation(data.getDoubleExtra(MapsActivity.RESULT_LATITUDE,task.getLatitude()),data.getDoubleExtra(MapsActivity.RESULT_LONGITUDE,task.getLongitude()));
+        locationTextView.setText(getString(R.string.location_text, task.getLatitude(), task.getLongitude(),calendar.getTime()));
+        //        lastLocation.setLatitude(task.getLatitude());
+//        lastLocation.setLongitude(task.getLongitude());
+    }
+
     private View.OnClickListener OnSaveClickListener() {
         return e -> {
             Intent replyIntent = new Intent();
@@ -254,7 +270,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
                         .show();
             } else {
                 String name = nameField.getText().toString();
-                task.setLocation(lastLocation.getLatitude(), lastLocation.getLongitude());
+                //task.setLocation(lastLocation.getLatitude(), lastLocation.getLongitude());
                 task.setName(name);
                 task.setDone(doneCheckBox.isChecked());
                 if (datefield != null) {
@@ -307,6 +323,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
             doneCheckBox.setChecked(task.isDone());
             //datefield.setText(task.getDate().toString());
             //setupDateFieldValue(task.getDate());
+            locationTextView.setText( getString(R.string.location_text,task.getLatitude(), task.getLongitude(),calendar.getTime()));
             updateLabel(task.getDate());
             categorySpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,Category.values()));
             categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

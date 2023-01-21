@@ -21,5 +21,8 @@
     <string name="address_text" translatable="false">"Adres: %1$s \n Czas: %2$tr"</string>
     <string name="service_not_available" translatable="false">Niedostępne</string>
     <string name="no_address_found" translatable="false">Nie znaleziono adresu</string>
+    <string name="save">Zapisz</string>
+    <string name="read_location">Pobierz lokalizację</string>
+    <string name="open_map">Otwórz mapę</string>
     <string name="title_activity_maps">MapsActivity</string>
 </resources>
