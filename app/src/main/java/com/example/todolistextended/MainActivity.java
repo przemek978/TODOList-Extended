@@ -49,32 +49,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         adapter = new TaskAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-
         liveData = taskViewModel.findAll();
         loadAllTasks();
-
-
-
 
         FloatingActionButton addToDoItemButton = findViewById(R.id.add_button);
         addToDoItemButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddEditTaskActivity.class);
             startActivityForResult(intent, NEW_TODO_ACTIVITY_REQUEST_CODE);
         });
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        //editsearch = findViewById(R.id.simpleSearchView);
-        //editsearch.setOnQueryTextListener(this);
-
-        //Spinner spinner = (Spinner) findViewById(R.id.filterSpinner);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-//                R.array.task_state_options, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -87,15 +70,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return true;
-            }
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            return true;
+        }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
         });
         return super.onCreateOptionsMenu(menu);
     }
@@ -118,18 +101,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.startActivityForResult(intent, requestCode);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-////        if (id == R.id.action_settings) {
-////            Intent intent = new Intent(this, SettingsActivity.class);
-////            startActivity(intent);
-////            return true;
-////        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -140,12 +111,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         } else if (requestCode == EDIT_TODO_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Snackbar.make(findViewById(R.id.constraintLayout), getString(R.string.task_edited),
                     Snackbar.LENGTH_LONG).show();
-        } else {
-//            Snackbar.make(findViewById(R.id.coordinator_layout),
-//                            getString(R.string.empty_not_saved),
-//                            Snackbar.LENGTH_LONG)
-//                    .show();
-        }
+        } else {}
     }
 
     @Override
@@ -156,9 +122,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public boolean onQueryTextChange(String newText) {
         String text = newText.trim();
-        if (text.length() > 1) {
-            //taskViewModel.search(text).observe(this, adapter::setToDoItems);
-        } else {
+        if (text.length() <2) {
             taskViewModel.findAll().observe(this, adapter::setTasks);
         }
         return false;
@@ -186,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
 
         private List<Task> tasks;
-
         @NonNull
         @Override
         public TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -195,21 +158,25 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         @Override
         public void onBindViewHolder(TaskHolder holder, int position) {
-
-
-            if (tasks != null) {
+            if (tasks != null)
+            {
                Task task = tasks.get(position);
                 holder.bind(task);
 
-            } else {
+            }
+            else
+            {
                 Log.d("MainActivity", "No tasks");
             }
         }
 
         public int getItemCount() {
-            if (tasks != null) {
+            if (tasks != null)
+            {
                 return tasks.size();
-            } else {
+            }
+            else
+            {
                 return 0;
             }
         }
@@ -226,10 +193,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         private ImageView iconImageView;
         private Task task;
 
-
         public TaskHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_task, parent, false));
-
 
             nameTextView=itemView.findViewById(R.id.task_item_name);
             dateTextView=itemView.findViewById(R.id.task_item_date);
@@ -261,20 +226,22 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             dateTextView.setText(task.getDate().toString());
             doneCheckBox.setChecked(task.isDone());
 
-            if(doneCheckBox.isChecked()){
+            if(doneCheckBox.isChecked())
+            {
                 nameTextView.setPaintFlags(nameTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
-            else{
+            else
+            {
                 nameTextView.setPaintFlags(nameTextView.getPaintFlags() &~ Paint.STRIKE_THRU_TEXT_FLAG);
             }
-
-            if(task.getCategory().equals(Category.HOME)){
+            if(task.getCategory().equals(Category.HOME))
+            {
                 iconImageView.setImageResource(R.drawable.ic_house);
             }
-            else{
+            else
+            {
                 iconImageView.setImageResource(R.drawable.ic_studies);
             }
-
         }
     }
 }

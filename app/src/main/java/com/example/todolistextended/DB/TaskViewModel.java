@@ -19,19 +19,13 @@ public class TaskViewModel extends AndroidViewModel {   //getting data from DB
         taskRepository=new TaskRepository(application);
         tasks=taskRepository.findAllBooks();
     }
-
     public LiveData<List<Task>> findAll() { return tasks;}
-
     public LiveData<Task> findById(Integer id) {
         return taskRepository.findById(id);
     }
     public void insert (Task task){ taskRepository.insert(task);}
-
     public void update (Task task) {taskRepository.update(task);}
-
     public void delete (Task task) { taskRepository.delete(task);}
-
-
     public LiveData<List<Task>> findByDone(boolean done) {
         return null;
     }

@@ -1,6 +1,4 @@
 
-l
-<app/src/main/java/com/example/todolistextended/Category.java,7\f\7f230b8cef9a0b9343166acd39367658b163803f
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 @

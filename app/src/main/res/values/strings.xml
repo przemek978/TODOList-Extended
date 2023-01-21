@@ -25,4 +25,8 @@
     <string name="read_location">Pobierz lokalizację</string>
     <string name="open_map">Otwórz mapę</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="prev">Poprz</string>
+    <string name="next">Nast</string>
+    <string name="monday">Poniedziałek</string>
+    <string name="day">DZIEŃ</string>
 </resources>

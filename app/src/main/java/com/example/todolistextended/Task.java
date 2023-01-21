@@ -14,10 +14,10 @@ public class Task {
     private int id;
     private String day;
     private String name;
+    private String description;
     @TypeConverters(DateConverter.class)
     private Date date;
     private boolean done;
-    //private Location location;
     private double Latitude,Longitude;
     Category category;
 
@@ -33,12 +33,6 @@ public class Task {
         Latitude=location.getLatitude();
         Longitude=location.getLongitude();
     }
-//    public Task(String name){
-//        //id=UUID.randomUUID();
-//        this.name=name;
-//        date = new Date();
-//        category=Category.HOME;
-//    }
     public Category getCategory(){
         return category;
     }
@@ -48,19 +42,12 @@ public class Task {
     public Date getDate() {
         return date;
     }
-//    public double getLatitude(){
-//        return this.Latitude;
-//    }
-//    public double getLongitude(){
-//        return this.Longitude;
-//    }
     public void setDate(Date d){
         date=d;
     }
     public void setLocation(double Lat,double Long){
         this.Latitude=Lat;
         this.Longitude=Long;
-        //this.location=location;
     }
     public void setLatitude(double Lat){
         this.Latitude=Lat;
@@ -74,6 +61,7 @@ public class Task {
     public double getLongitude(){
         return this.Longitude;
     }
+
     public String getDay() {
         return day;
     }
@@ -84,6 +72,14 @@ public class Task {
 
     public String getName() {
         return name;
+    }
+
+    public void setDescription(String desc){
+        description=desc;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setName(String s) {
@@ -105,6 +101,6 @@ public class Task {
     public void setDone(boolean isChecked) {
         this.done=isChecked;
     }
-
-
 }
+
+
