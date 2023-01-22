@@ -41,8 +41,8 @@
     <TextView
         android:id="@+id/day"
         style="@style/TextFieldStyle"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_width="310dp"
+        android:layout_height="34dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/header"
@@ -64,4 +64,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />
+
+    <Button
+        android:id="@+id/fb_button"
+        android:layout_width="53dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/blueFB"
+        android:text="fb"
+
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
