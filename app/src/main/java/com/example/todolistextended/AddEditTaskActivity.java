@@ -1,5 +1,8 @@
 package com.example.todolistextended;
 
+import static com.example.todolistextended.MainActivity.EDIT_TODO_ACTIVITY_REQUEST_CODE;
+import static com.example.todolistextended.MainActivity.NEW_TODO_ACTIVITY_REQUEST_CODE;
+
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -17,11 +20,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,33 +37,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.TimePicker;
-import android.widget.Toast;
-
 import com.example.todolistextended.DB.TaskViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-import static com.example.todolistextended.MainActivity.EDIT_TODO_ACTIVITY_REQUEST_CODE;
-import static com.example.todolistextended.MainActivity.NEW_TODO_ACTIVITY_REQUEST_CODE;
 
 public class AddEditTaskActivity extends AppCompatActivity implements SensorEventListener {
-    public static final String EXTRA_EDIT_TODO_ID = "pb.edu.pl.EDIT_BOOK_TITLE";
+    public static final String EXTRA_EDIT_TODO_ID = "pb.edu.pl.EDIT_TASK_TITLE";
     public final String DATE_PATTERN = "dd.MM.yyyy HH:mm";
     public final String EXTRA_REQUEST_CODE = "requestCode";
     public final int EXTRA_REQUEST_MAP=0;
