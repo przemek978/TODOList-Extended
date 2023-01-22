@@ -36,6 +36,6 @@ public interface TaskDao {
     LiveData<Task> findBydayweek(String dayweek);
 
     @Query("SELECT * FROM task WHERE name LIKE :name")
-    List<Task> findBookWithTitle(String name);
+    LiveData<List<Task>> findBooksWithTitle(String name);
 }
 

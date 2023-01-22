@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +31,12 @@ import com.example.todolistextended.DB.TaskViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, AdapterView.OnItemSelectedListener {
 
@@ -39,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     TaskAdapter adapter;
     private TaskViewModel taskViewModel;
     private LiveData<List<Task>> liveData;
+    private LiveData<Task> liveDataFind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,24 +75,58 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
         final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint("Type name to find");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            return true;
-        }
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                fetchTasks(query);
+                return true;
+            }
 
-        @Override
-        public boolean onQueryTextChange(String newText) {
-            return false;
-        }
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                fetchTasks(newText);
+                return false;
+            }
+            });
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override       //implemented to restore data upon exit from search
+            public void onFocusChange(View view, boolean queryTextFocused) {
+                if(!queryTextFocused) {
+                    searchItem.collapseActionView();
+                    searchView.setQuery("", false);
+                    loadAllTasks();
+                }
+            }
         });
-        return super.onCreateOptionsMenu(menu);
+
+            return super.onCreateOptionsMenu(menu);
+    }
+
+    private void fetchTasks(String query) {
+        taskViewModel.findByName(query).observe(this, task -> {
+            RecyclerView recyclerView = findViewById(R.id.recyclerview);
+            adapter = new TaskAdapter();
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+            liveData = taskViewModel.findByName(query);
+            loadFoundTasks(query);
+        });
     }
 
     private void loadAllTasks() {
         liveData.removeObservers(this);
         liveData = taskViewModel.findAll();
+        liveData.observe(this, adapter::setTasks);
+    }
+
+    private void loadFoundTasks(String query) {
+        liveData.removeObservers(this);
+        liveData = taskViewModel.findByName(query);
         liveData.observe(this, adapter::setTasks);
     }
 
