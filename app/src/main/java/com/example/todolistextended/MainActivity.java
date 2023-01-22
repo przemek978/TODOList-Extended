@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                fetchTasks(query);
                 return true;
             }
 
@@ -279,9 +278,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             {
                 iconImageView.setImageResource(R.drawable.ic_house);
             }
-            else
+            else if(task.getCategory().equals(Category.STUDIES))
             {
                 iconImageView.setImageResource(R.drawable.ic_studies);
+            }
+            else
+            {
+                iconImageView.setImageResource(R.drawable.ic_work);
             }
         }
     }

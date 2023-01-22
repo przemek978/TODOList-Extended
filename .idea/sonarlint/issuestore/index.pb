@@ -8,3 +8,7 @@ P
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+h
+8app/src/main/java/com/example/todolistextended/Task.java,6\3\634f4b9592a1d1640b41a8bc7e46fb3a19e64577
+q
+Aapp/src/main/java/com/example/todolistextended/DateConverter.java,3\4\349a16bfa7c26b7c95e81ce860170c491d0eef33

@@ -4,37 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#E8F25D"
+    >
 
-    <Button
-        android:id="@+id/goBackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1"
-        android:backgroundTint="#00FFFFFF"
-        android:text="Prev"
-        android:textColor="#0021FD"
-        android:textSize="19sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/goNextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_weight="1"
-        android:backgroundTint="#00FFFFFF"
-        android:text="Next"
-        android:textColor="#0021FD"
-        android:textSize="19sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -63,38 +39,20 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="41dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="176dp"
-        android:fontFamily="sans-serif-black"
-        android:text="DAY"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textFontWeight="545"
-        android:textSize="19sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/day"
         style="@style/TextFieldStyle"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-black"
-        android:text="Monday"
+        android:text="@string/header"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textFontWeight="545"
-        android:textSize="16sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toStartOf="@+id/goNextButton"
-        app:layout_constraintStart_toEndOf="@+id/goBackButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_button"
@@ -102,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        app:backgroundTint="@color/dark_teal"
+        app:backgroundTint="#FFA077"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />

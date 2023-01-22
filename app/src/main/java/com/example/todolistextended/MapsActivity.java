@@ -45,14 +45,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double lang = getIntent().getDoubleExtra(REQUEST_LATITUDE, 53.133);
         double longitude = getIntent().getDoubleExtra(REQUEST_LONGITUDE, 23.15);
         // Add a marker in Sydney and move the camera
-        LatLng bialystok = new LatLng(lang, longitude);
-        mMap.addMarker(new MarkerOptions().position(bialystok).title("Current Location"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(bialystok));
+        LatLng location = new LatLng(lang, longitude);
+        mMap.addMarker(new MarkerOptions().position(location).title(getString(R.string.loc_message)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull LatLng latLng) {
                 mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Current Location"));
+                mMap.addMarker(new MarkerOptions().position(latLng).title(getString(R.string.loc_message)));
                 setLangitude=latLng.latitude;
                 setLongitude=latLng.longitude;
                 //return false;

@@ -20,13 +20,16 @@
     <string name="next">Next</string>
     <string name="monday">Monday</string>
     <string name="day">DAY</string>
-    <string name="localization_hint">Press the button to download the last location</string>
+    <string name="localization_hint">Press the button to get location</string>
     <string name="location_text">Latitude: %1$.4f   Longitude: %2$.4f   Time: %3$tr</string>
     <string name="no_location">No location</string>
     <string name="address_text">Address: %1$s Time: %2$tr</string>
     <string name="service_not_available">Not available</string>
     <string name="no_address_found">Address not found</string>
     <string name="save">Save</string>
-    <string name="read_location">Download location</string>
+    <string name="read_location">Get location</string>
     <string name="open_map">Open the map</string>
+    <string name="header">Welcome in TODO world</string>
+    <string name="date">Provide a date</string>
+    <string name="loc_message">Current Location</string>
 </resources>
