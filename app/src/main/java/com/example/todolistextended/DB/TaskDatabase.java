@@ -12,6 +12,7 @@ import com.example.todolistextended.Category;
 import com.example.todolistextended.Task;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,12 +34,24 @@ public abstract class TaskDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 TaskDao dao = databaseInstance.taskDao();
                 dao.deleteAll();
-                for(int i=1;i<=5;i++) {
+                int Y=2023,M=1,D=20,H=15,m=0;
+                for(int i=1;i<=50;i++) {
                     Task task = new Task();
                     task.setDay(days.get(i%7));
-                    task.setName("Nowe zadanie"+i );
+                    task.setName("Nowe zadanie "+i );
+                    task.setDescription("Jakis opis zadania nr "+i);
                     task.setDone(false);
+                    task.setDate((new Date(Y,M,D,H,m)));
                     dao.insert(task);
+                    D=D+3;
+                    if(D>31){
+                        D=1;
+                        M++;
+                    }
+                    if(i%5==0){
+                        H=(H+2)%25;
+                        m=(m+30)%61;
+                    }
                 }
             });
         }
