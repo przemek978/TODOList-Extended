@@ -57,7 +57,6 @@ import static com.example.todolistextended.MainActivity.NEW_TODO_ACTIVITY_REQUES
 
 public class AddEditTaskActivity extends AppCompatActivity implements SensorEventListener {
     public static final String EXTRA_EDIT_TODO_ID = "pb.edu.pl.EDIT_BOOK_TITLE";
-    int MIN_SEARCH_INPUT_LENGTH = 3;
     public final String DATE_PATTERN = "dd.MM.yyyy HH:mm";
     public final String EXTRA_REQUEST_CODE = "requestCode";
     public final int EXTRA_REQUEST_MAP=0;
@@ -83,6 +82,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
     public static String REQUEST_LATITUDE="Latitude";
     public static String REQUEST_LONGITUDE="Longitude";
     public String TAG = "Location";
+    private static final int SHAKE_THRESHOLD = 800;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -156,12 +156,45 @@ public class AddEditTaskActivity extends AppCompatActivity implements SensorEven
     public void onSensorChanged(SensorEvent sensorEvent) {
         int sensorType = sensorEvent.sensor.getType();
         float currentValue = sensorEvent.values[0];
-        if(currentValue-lastValue>5 || currentValue-lastValue<-5){
-            task.setDone(!task.isDone());
-            doneCheckBox.setChecked(task.isDone());
-            Log.d("Shake", "Skake detect");
+        long curTime = System.currentTimeMillis();
+        long  lastUpdate = 0;
+        if((currentValue-lastValue>4 || currentValue-lastValue<-4)){
+            if((curTime - lastUpdate) > 1000)
+            {
+                long diffTime = (curTime - lastUpdate);
+                lastUpdate = curTime;
+                task.setDone(!task.isDone());
+                doneCheckBox.setChecked(task.isDone());
+                Log.d("Shake", "Skake detect");
+            }
         }
         lastValue=currentValue;
+//        float x,y,z,last_x=0,last_y=0,last_z=0;
+//        long  lastUpdate = 0;
+//        if (sensorEvent.sensor.getType()==Sensor.TYPE_ACCELEROMETER) {
+//            long curTime = System.currentTimeMillis();
+//            // only allow one update every 100ms.
+//            if ((curTime - lastUpdate) > 100) {
+//                long diffTime = (curTime - lastUpdate);
+//                lastUpdate = curTime;
+//
+//                x = sensorEvent.values[SensorManager.DATA_X];
+//                y = sensorEvent.values[SensorManager.DATA_Y];
+//                z = sensorEvent.values[SensorManager.DATA_Z];
+//
+//                float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
+//
+//                if (speed > SHAKE_THRESHOLD) {
+//                    task.setDone(!task.isDone());
+//                    doneCheckBox.setChecked(task.isDone());
+//                    Log.d("sensor", "shake detected w/ speed: " + speed);
+//                    Toast.makeText(this, "shake detected w/ speed: " + speed, Toast.LENGTH_SHORT).show();
+//                }
+//                last_x = x;
+//                last_y = y;
+//                last_z = z;
+//            }
+//        }
     }
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
