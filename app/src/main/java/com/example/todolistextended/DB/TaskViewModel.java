@@ -23,6 +23,10 @@ public class TaskViewModel extends AndroidViewModel {   //getting data from DB
     public LiveData<Task> findById(Integer id) {
         return taskRepository.findById(id);
     }
+    public LiveData<List<Task>> findByName(String name) {
+        String newName = "%"+name+"%";
+        return taskRepository.findByName(newName);
+    }
     public void insert (Task task){ taskRepository.insert(task);}
     public void update (Task task) {taskRepository.update(task);}
     public void delete (Task task) { taskRepository.delete(task);}
